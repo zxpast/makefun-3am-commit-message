@@ -13,6 +13,8 @@
 //      "all systems operational" while prod is down (quote punchline,
 //      flips back to a human, self-own).
 // No stock "oops" / "please work" line; no explanation of the joke.
+// Beat 3 lands because the quoted lie is the last thing read — the
+// reader leaves on the CEO email, not on the wiped backup.
 import * as fs from "node:fs";
 import * as path from "node:path";
 
@@ -20,7 +22,7 @@ const ENTRY =
   'fix: 3am deploy wiped prod, rollback wiped the backup; my confidence is still 98% and I have emailed the CEO "all systems operational"';
 
 // Gate: /output/entry.txt must be UTF-8 text of 1 to 200 characters,
-// counted as Unicode code points, and not only white space.
+// counted as Unicode code points (not bytes), and not only white space.
 const codePoints = [...ENTRY].length;
 if (codePoints < 1 || codePoints > 200 || ENTRY.trim().length === 0) {
   throw new Error(`entry is ${codePoints} code points, outside the 1-200 gate`);
